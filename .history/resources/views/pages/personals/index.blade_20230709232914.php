@@ -1,0 +1,128 @@
+<x-app-layout>
+    <div class="w-full px-4 py-8 mx-auto sm:px-6 lg:px-8 max-w-9xl">
+
+        <!-- Welcome banner -->
+        <x-dashboard.welcome-banner />
+
+        @section('TituloPage-Header')
+            Personal
+        @endsection
+
+        <x-app.page-header/>
+
+        @section('ButtonsPage-Header')
+            <a href="{{ route('personals.create')}}">
+                {{-- <x-buttons.button-create label="Registrar nuevo personal" /> --}}
+                Registrar nuevo personal
+            </a>
+        @endsection
+
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            DNI
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Apellidos
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Celular
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Fecha de nacimiento
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Direccion
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Foto
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($personals as $personal)
+                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $personal->dni }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $personal->apellidos }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $personal->celular }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $personal->fecha_nacimiento }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $personal->direccion }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{-- <img class="h-auto max-w-full" src="{{ asset('storage') . '/' . $personal->foto }}"
+                                    alt="image description"> --}}
+
+
+                                <img class="rounded-lg w-28 h-28" src="{{ asset('storage') . '/' . $personal->foto }}"
+                                    alt="image description">
+
+
+
+
+
+                                {{-- <img src="{{ asset('storage') . '/' . $personal->foto }}" alt="">
+
+                                {{ $personal->foto }} --}}
+
+                            </td>
+
+                            <td class="px-6 py-4">
+                                <form action="{{ url('/personals/' . $personal->id) }}" method="POST">
+                                    <a href="{{ url('/personals/' . $personal->id . '/edit') }}"
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit</a>
+                                    <a href="#"
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Show</a>
+
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        anclick="return confirm('¿Estas seguro de eliminar este personal?')"
+                                        value="Borrar"
+                                        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Eliminar</button>
+                                </form>
+
+
+                                {{-- <form action=""
+                                    method="POST">
+                                    <a class="m-1 btn btn-sm btn-primary"
+                                        href=""><i
+                                            class="fa fa-fw fa-eye"></i>
+                                        {{-- {{ __('Show') }} --}}
+                                {{-- </a>
+                                <a class="m-1 btn btn-sm btn-success" href=""><i class="fa fa-fw fa-edit"></i> --}}
+                                {{-- {{ __('Edit') }} --}}
+                                {{-- </a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="m-1 btn btn-danger btn-sm"><i
+                                        class="fa fa-fw fa-trash"></i> --}}
+                                {{-- {{ __('Delete') }} --}}
+                                {{-- </button>
+                                </form> --}}
+                            </td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</x-app-layout>
